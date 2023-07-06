@@ -5,19 +5,11 @@ const ListMovies = ({ movieData }) => {
   const location = useLocation();
   return (
     <ul>
-      {movieData.map(
-        ({ id, title, name }) => (
-          // рендеримо фільми за назвою, або заголовком
-          <NavLink key={id} to={`/movies/${id}`} state={{ from: location }}>
-            <li key={id}>
-              {title}
-              {name}
-            </li>
-          </NavLink>
-        )
-        //   рендеримо, тільки якщо фільм має заголовок
-        //   title && <li key={id}>{title} </li>
-      )}
+      {movieData.map(({ id, title, name }) => (
+        <NavLink key={id} to={`/movies/${id}`} state={{ from: location }}>
+          {title && <li key={id}>{title} </li>}
+        </NavLink>
+      ))}
     </ul>
   );
 };
