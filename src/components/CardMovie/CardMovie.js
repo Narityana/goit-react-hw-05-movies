@@ -1,6 +1,14 @@
 import PropTypes from 'prop-types';
 import defaultPoster from 'components/images/defaultPoster.jpg';
-import css from './CardMovie.module.css';
+import {
+  Container,
+  Poster,
+  Information,
+  Title,
+  Score,
+  List,
+  Subtitle,
+} from './CardMovie.styled';
 
 const CardMovie = ({ details }) => {
   const {
@@ -23,32 +31,40 @@ const CardMovie = ({ details }) => {
     : 'No information';
 
   return (
-    <div className={css.movie__container} key={id}>
-      <h1 className={css.movie__title}>
-        {title} {year}
-      </h1>
-      <img className={css.movie__image} src={poster} alt={title} />
-      <p>User score: {score}%</p>
-      <h3>Overview</h3>
-      <p>{overview}</p>
-      <h3>Genres</h3>
-      <p>{genresList}</p>
-    </div>
+    <Container key={id}>
+      <Poster src={poster} alt={title} />
+      <Information>
+        <Title>
+          {title} {year}
+        </Title>
+        <Score>User score: {score}%</Score>
+        <List>
+          <li>
+            <Subtitle>Overview</Subtitle>
+            <p>{overview}</p>
+          </li>
+          <li>
+            <Subtitle>Genres</Subtitle>
+            <p>{genresList}</p>
+          </li>
+        </List>
+      </Information>
+    </Container>
   );
 };
 
 CardMovie.propTypes = {
   details: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    title: PropTypes.string,
     release_date: PropTypes.string,
     poster_path: PropTypes.string,
-    vote_average: PropTypes.number.isRequired,
-    overview: PropTypes.string.isRequired,
+    vote_average: PropTypes.number,
+    overview: PropTypes.string,
     genres: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
+        id: PropTypes.number,
+        name: PropTypes.string,
       })
     ),
   }).isRequired,

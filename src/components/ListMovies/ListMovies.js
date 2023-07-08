@@ -1,16 +1,23 @@
 import PropTypes from 'prop-types';
 import { NavLink, useLocation } from 'react-router-dom';
+import { Container, List, Item } from './ListMovies.styled';
 
 const ListMovies = ({ movieData }) => {
   const location = useLocation();
   return (
-    <ul>
-      {movieData.map(({ id, title, name }) => (
-        <NavLink key={id} to={`/movies/${id}`} state={{ from: location }}>
-          {title && <li key={id}>{title} </li>}
-        </NavLink>
-      ))}
-    </ul>
+    <Container>
+      <List>
+        {movieData
+          .filter(movie => movie.title)
+          .map(({ id, title }) => (
+            <Item key={id}>
+              <NavLink to={`/movies/${id}`} state={{ from: location }}>
+                {title}
+              </NavLink>
+            </Item>
+          ))}
+      </List>
+    </Container>
   );
 };
 
@@ -19,7 +26,6 @@ ListMovies.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string,
-      name: PropTypes.string,
     })
   ).isRequired,
 };

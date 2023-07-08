@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import defaultPhoto from 'components/images/defaultPhoto.jpg';
-
+import defaultPhoto from 'components/images/defaultPhoto.png';
+import { Container, Photo, Subtitle, InfoActor } from './Actor.styled';
 const Actor = ({ details }) => {
   const { name, profile_path, character } = details;
   const photo = profile_path
@@ -8,11 +8,11 @@ const Actor = ({ details }) => {
     : `${defaultPhoto}`;
 
   return (
-    <div>
-      <img src={photo} alt={name} />
-      <h2>{name}</h2>
-      <p>Character: {character}</p>
-    </div>
+    <Container>
+      <Photo src={photo} alt={name} />
+      <Subtitle>{name}</Subtitle>
+      <InfoActor>Character: {character}</InfoActor>
+    </Container>
   );
 };
 

@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
-import css from './Button.module.css';
+// import css from './Button.module.css';
+import { ButtonStyle, IconBox } from './Button.styled';
 
-const Button = ({ buttonName }) => {
+const Button = ({ buttonName, icon }) => {
   return (
-    <button type="button" className={css.button}>
+    <ButtonStyle type="button">
+      <IconBox>{icon}</IconBox>
       {buttonName}
-    </button>
+    </ButtonStyle>
   );
 };
 

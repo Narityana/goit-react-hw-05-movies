@@ -12,7 +12,6 @@ const Home = () => {
       try {
         setIsLoading(true);
         const movieData = await fetchTrandingMovie();
-        console.log(movieData);
         setTrandMovie(movieData);
       } catch (error) {
         console.log(error);

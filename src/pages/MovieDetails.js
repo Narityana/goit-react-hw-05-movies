@@ -6,6 +6,16 @@ import Button from 'components/Button/Button';
 import CardMovie from 'components/CardMovie/CardMovie';
 import Loader from 'components/Loader/Loader';
 
+import {
+  IconBack,
+  IconReview,
+  IconCast,
+  Container,
+  Subtitle,
+  BtnContainer,
+  LinkButton,
+} from './MovieDetails.styled';
+
 const MovieDetails = () => {
   const location = useLocation();
   const backLinkLocationRef = useRef(location.state?.from ?? '/');
@@ -18,7 +28,6 @@ const MovieDetails = () => {
       try {
         setIsLoading(true);
         const movie = await fetchDetailsMovie(movieId);
-        console.log(movie);
         setDetails(movie);
       } catch (error) {
         console.log(error);
@@ -30,23 +39,24 @@ const MovieDetails = () => {
   }, [movieId]);
 
   return (
-    <>
+    <Container>
       <NavLink to={backLinkLocationRef.current}>
-        <Button buttonName="Go back!" />
+        <Button icon={<IconBack />} buttonName="Go back!" />
       </NavLink>
       <CardMovie details={details} />
-      <div>
-        <h3>Additional information</h3>
-        <NavLink to="cast">
-          <Button buttonName="Cast" />
-        </NavLink>
+      <BtnContainer>
+        <Subtitle>Additional information:</Subtitle>
+
+        <LinkButton to="cast">
+          <Button icon={<IconCast />} buttonName="Cast" />
+        </LinkButton>
         <NavLink to="reviews">
-          <Button buttonName="Reviews" />
+          <Button icon={<IconReview />} buttonName="Reviews" />
         </NavLink>
-      </div>
+      </BtnContainer>
       {isLoading && <Loader />}
       <Outlet />
-    </>
+    </Container>
   );
 };
 

@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchRewiewsMovie } from 'components/Service/Api';
+import { Container, List, Author } from './Rewiews.styled';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -10,7 +11,6 @@ const Reviews = () => {
     const addCast = async () => {
       try {
         const review = await fetchRewiewsMovie(movieId);
-        console.log(review);
         setReviewsMovie(review);
       } catch (error) {
         console.log(error);
@@ -20,20 +20,20 @@ const Reviews = () => {
   }, [movieId]);
 
   return (
-    <div>
-      <ul>
+    <Container>
+      <List>
         {reviewsMovie.length !== 0 ? (
           reviewsMovie.map(review => (
             <li key={review.id}>
-              <p>Author: {review.author}</p>
+              <Author>Author: {review.author}</Author>
               <p>{review.content}</p>
             </li>
           ))
         ) : (
           <p>We dont have any reviews for this movie</p>
         )}
-      </ul>
-    </div>
+      </List>
+    </Container>
   );
 };
 

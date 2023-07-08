@@ -6,6 +6,12 @@ import ListMovies from 'components/ListMovies/ListMovies';
 import Loader from 'components/Loader/Loader';
 
 const Movies = () => {
+  const styles = {
+    marginTop: '40px',
+    fontSize: '24px',
+    fontWeight: 500,
+    textAlign: 'center',
+  };
   const [searchMovies, setSearchMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,7 +23,6 @@ const Movies = () => {
       try {
         setIsLoading(true);
         const moviesList = await fetchSerchMovie(query);
-        console.log(moviesList);
         setSearchMovies(moviesList);
       } catch (error) {
         console.log(error);
@@ -32,16 +37,24 @@ const Movies = () => {
     setSearchParams({ query: query });
   };
 
+  let content = null;
+
+  if (isLoading) {
+    content = <Loader />;
+  } else if (searchMovies.length === 0 && query !== '') {
+    content = (
+      <p style={styles}>
+        Nothing found! For accurate search, please enter the original title
+      </p>
+    );
+  } else if (searchMovies.length > 0) {
+    content = <ListMovies movieData={searchMovies} />;
+  }
+
   return (
     <>
-      <h2>need form</h2>
       <SearchForm onSubmit={handleSubmit} />
-      {searchMovies && searchMovies.length > 0 ? (
-        <ListMovies movieData={searchMovies} />
-      ) : (
-        <p>Фільми не знайдені</p>
-      )}
-      {isLoading && <Loader />}
+      {content}
     </>
   );
 };

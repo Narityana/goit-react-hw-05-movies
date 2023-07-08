@@ -1,7 +1,7 @@
 import { fetchCreditsMovie } from 'components/Service/Api';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-
+import { Container, CastList, CastItem } from './Cast.styled';
 import Actor from 'components/Actor/Actor';
 
 const Cast = () => {
@@ -12,7 +12,6 @@ const Cast = () => {
     const addCast = async () => {
       try {
         const actors = await fetchCreditsMovie(movieId);
-        console.log(actors);
         setCreditsMovie(actors.cast);
       } catch (error) {
         console.log(error);
@@ -22,15 +21,15 @@ const Cast = () => {
   }, [movieId]);
 
   return (
-    <div>
-      <ul>
+    <Container>
+      <CastList>
         {creditsMovie.map(actor => (
-          <li key={actor.id}>
+          <CastItem key={actor.id}>
             <Actor details={actor} />
-          </li>
+          </CastItem>
         ))}
-      </ul>
-    </div>
+      </CastList>
+    </Container>
   );
 };
 
